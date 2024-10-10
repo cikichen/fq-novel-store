@@ -7,7 +7,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *'
+     - cron: '0 */3 * * *'
 
 permissions: write-all
 
@@ -26,10 +26,10 @@ jobs:
           restore-keys: |  
             ${{ runner.os }}-pip-  
    
-      - name: Set up Python 3.7  
+      - name: Set up Python 3.8  
         uses: actions/setup-python@v4  
         with:  
-          python-version: "3.7"  
+          python-version: "3.8"  
   
       - name: Install Dependency  
         run: |  
@@ -62,7 +62,7 @@ jobs:
           onlyRemoveDeployments: true
   # Single deploy job since we're just deploying
   deploy:
-    needs: [update,cleanup]
+    needs: [update]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
